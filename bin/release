@@ -1,0 +1,7 @@
+# custom-buildpack/bin/release
+#!/bin/bash
+cat <<EOF
+---
+default_process_types:
+  web: bin/start-nginx
+EOF
