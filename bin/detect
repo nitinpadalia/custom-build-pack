@@ -1,0 +1,4 @@
+# custom-buildpack/bin/detect
+#!/bin/bash
+echo "Custom Lua Buildpack"
+exit 0

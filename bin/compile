@@ -1,0 +1,23 @@
+# custom-buildpack/bin/compile
+#!/bin/bash
+set -e
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+echo "-----> Installing LuaRocks"
+wget https://luarocks.org/releases/luarocks-3.7.0.tar.gz
+tar zxpf luarocks-3.7.0.tar.gz
+cd luarocks-3.7.0
+./configure --prefix=$BUILD_DIR/.luarocks
+make build
+make install
+
+echo "-----> Installing lua-resty-redis-cluster"
+$BUILD_DIR/.luarocks/bin/luarocks install lua-resty-redis-cluster
+
+echo "-----> Cleaning up"
+cd $BUILD_DIR
+rm -rf luarocks-3.7.0 luarocks-3.7.0.tar.gz
+
+echo "-----> LuaRocks and lua-resty-redis-cluster installed"
